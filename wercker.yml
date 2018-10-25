@@ -1,4 +1,4 @@
-box: matsub/node-firebase
+box: node
 
 build:
   steps:
