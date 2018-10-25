@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "test": "jest tests",
+    "test": "jest",
     "start": "parcel index.html",
     "build": "parcel build index.html",
     "lint": "eslint src tests"

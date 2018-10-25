@@ -1,0 +1,12 @@
+box: matsub/node-firebase
+
+build:
+  steps:
+    - script:
+      code: npm install
+
+    - script:
+      code: npm lint
+
+    - script:
+      code: npm test

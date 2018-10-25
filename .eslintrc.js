@@ -87,7 +87,6 @@ module.exports = {
       "error",
       "always"
     ],
-    "max-classes-per-file": "error",
     "max-depth": "off",
     "max-len": "off",
     "max-lines": "off",
@@ -104,7 +103,6 @@ module.exports = {
     "newline-per-chained-call": "off",
     "no-alert": "error",
     "no-array-constructor": "error",
-    "no-async-promise-executor": "error",
     "no-await-in-loop": "error",
     "no-bitwise": "off",
     "no-buffer-constructor": "error",
@@ -146,7 +144,6 @@ module.exports = {
     "no-lonely-if": "off",
     "no-loop-func": "error",
     "no-magic-numbers": "off",
-    "no-misleading-character-class": "error",
     "no-mixed-operators": "off",
     "no-mixed-requires": "error",
     "no-multi-assign": "off",
@@ -240,7 +237,6 @@ module.exports = {
       "error",
       "always"
     ],
-    "require-atomic-updates": "error",
     "require-await": "error",
     "require-jsdoc": "off",
     "require-unicode-regexp": "off",
