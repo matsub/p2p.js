@@ -1,9 +1,9 @@
-{
-  "collectCoverageFrom": [
-    "src/**/*.js"
+module.exports = {
+  collectCoverageFrom: [
+    "src/**/*.js" 
   ],
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      ".wercker"
-    ]
+  testPathIgnorePatterns: [
+    "/node_modules/",
+    ".wercker"
+  ]
 }
