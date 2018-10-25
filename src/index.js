@@ -12,7 +12,7 @@ const config = {
 firebase.initializeApp(config)
 
 const peerRef = firebase.database().ref('/test')
-peerRef.on("child_added", snapshot => console.log(snapshot.val()))
+peerRef.on("child_added", snapshot => console.log(snapshot))
 
 const button = document.querySelector("button")
 button.onclick = () => peerRef.push({ message: "hello"})
