@@ -29,7 +29,10 @@ class Peer {
     this.ref = firebase.database().ref(`/${process.env.FIREBASE_REFERENCE}`)
     this._firebase = firebase
 
-    this.send({ peerId: this.peerId })
+    this.send({
+      peerId: this.peerId,
+      onCall: false
+    })
   }
 
   send (payload) {
