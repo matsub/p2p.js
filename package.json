@@ -9,7 +9,7 @@
     "test": "jest",
     "start": "parcel index.html",
     "build": "parcel build index.html",
-    "lint": "eslint src tests"
+    "lint": "eslint src __tests__"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

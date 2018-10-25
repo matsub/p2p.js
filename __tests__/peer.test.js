@@ -20,10 +20,6 @@ async function clearTestData () {
   await peerRef.remove()
 }
 
-export default {
-  clearTestData
-}
-
 describe('firebaseにpeerIDを登録する', () => {
   test('firebaseに飛ばされたデータを受け取れる', done => {
     let origin = { message: "hello" }
