@@ -9,7 +9,7 @@ const config = {
   storageBucket: "matsub-net.appspot.com",
   messagingSenderId: "597835145286"
 }
-const app = firebase.initializeApp(config)
+firebase.initializeApp(config)
 
 const peerRef = firebase.database().ref('/test')
 peerRef.on("child_added", snapshot => console.log(snapshot.val()))

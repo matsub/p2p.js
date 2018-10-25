@@ -8,11 +8,14 @@
   "scripts": {
     "test": "jest tests",
     "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html",
+    "lint": "eslint src tests"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
     "babel-jest": "^23.6.0",
     "babel-preset-env": "^1.7.0",
+    "eslint": "^5.7.0",
     "firebase": "^5.5.5",
     "jest": "^23.6.0",
     "parcel": "^1.10.3"
