@@ -7,10 +7,12 @@
   "private": true,
   "scripts": {
     "test": "jest tests",
-    "start": "parcel watch index.html",
+    "start": "parcel index.html",
     "build": "parcel build index.html"
   },
   "devDependencies": {
+    "babel-jest": "^23.6.0",
+    "babel-preset-env": "^1.7.0",
     "firebase": "^5.5.5",
     "jest": "^23.6.0",
     "parcel": "^1.10.3"
