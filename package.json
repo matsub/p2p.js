@@ -1,0 +1,7 @@
+{
+  "name": "p2p.js",
+  "version": "1.0.0",
+  "repository": "ssh://git@github.com/matsub/p2p.js.git",
+  "author": "matsub <matsub.rk@gmail.com>",
+  "license": "MIT"
+}
