@@ -36,7 +36,8 @@ describe('firebaseに投げたメッセージを拾える', () => {
   })
 })
 
-describe('firebaseにpeerIDを登録する', () => {
+
+describe('new Peer時にpeerを登録する', () => {
   let peer = null
 
   beforeEach(() => {
