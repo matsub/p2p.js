@@ -3,10 +3,10 @@ box: node
 build:
   steps:
     - script:
-      code: npm install
+      code: npm run install
 
     - script:
-      code: npm lint
+      code: npm run lint
 
     - script:
-      code: npm test
+      code: npm run test
