@@ -19,6 +19,7 @@ const EVENTS = {
 class Peer {
   constructor() {
     this.ref = firebase.database().ref('/test')
+    this._firebase = firebase
   }
 
   send (payload) {
@@ -34,7 +35,7 @@ class Peer {
   }
 
   on (event, callback) {
-    this.ref.on("child_added", snapshot => {
+    this.ref.on(EVENTS[event], snapshot => {
       callback(snapshot.val())
     })
   }

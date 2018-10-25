@@ -8,21 +8,30 @@ describe('firebaseにpeerIDを登録する', () => {
     await peer.ref.remove()
   })
 
-  test('firebaseに飛ばされたデータをcallbackで受け取れる', done => {
-    let origin = { message: "hello" }
-
+  test('firebaseに飛ばされたデータをcallbackで受け取れる', async () => {
+    const origin = { message: "hello" }
     peer.send(origin)
-    peer.on("recv", received => {
-      expect(received).toMatchObject(origin)
-      done()
-    })
+
+    const onPromise = new Promise(res => peer.on("recv", res))
+    const received = await onPromise
+
+    expect(received).toMatchObject(origin)
   })
 
   test('firebaseの受信をawaitで待てる', async () => {
-    let origin = { message: "yayay" }
+    const origin = { message: "yayay" }
 
     peer.send(origin)
-    let received = await peer.triggered("recv")
+    const received = await peer.triggered("recv")
     expect(received).toMatchObject(origin)
+  })
+
+  test('firebaseのRefは環境変数FIREBASE_REFERENCEによる', () => {
+    expect(peer.ref.key).toBe(process.env.FIREBASE_REFERENCE)
+  })
+
+  afterAll(() => {
+    peer._firebase.database().goOffline();
+    peer._firebase.delete();
   })
 })
