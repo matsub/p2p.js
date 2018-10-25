@@ -37,10 +37,19 @@ describe('firebaseに投げたメッセージを拾える', () => {
 })
 
 describe('firebaseにpeerIDを登録する', () => {
-  test('new Peer時にUUIDを発行する', () => {
-    jest.spyOn(Math, "random").mockReturnValue(0.5)
-    const peer = new Peer()
+  let peer = null
 
+  beforeEach(() => {
+    jest.spyOn(Math, "random").mockReturnValue(0.5)
+    peer = new Peer()
+  })
+
+  test('new Peer時にUUIDを生成する', () => {
     expect(peer.peerId).toEqual("88888888-8888-4888-8888-888888888888")
+  })
+
+  test('new PeerでpeerID(UUID)を持ったオブジェクトをストアする', async () => {
+    const received = await peer.triggered("recv")
+    expect(received).toHaveProperty("peerId", "88888888-8888-4888-8888-888888888888")
   })
 })

@@ -28,6 +28,8 @@ class Peer {
     this.peerId = getUUID()
     this.ref = firebase.database().ref(`/${process.env.FIREBASE_REFERENCE}`)
     this._firebase = firebase
+
+    this.send({ peerId: this.peerId })
   }
 
   send (payload) {
