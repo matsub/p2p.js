@@ -1,6 +1,6 @@
 import Peer from "../src/peer.js"
 
-describe('firebaseにpeerIDを登録する', () => {
+describe('firebaseに投げたメッセージを拾える', () => {
   let peer = null
 
   beforeEach(async () => {
@@ -33,5 +33,14 @@ describe('firebaseにpeerIDを登録する', () => {
   afterAll(() => {
     peer._firebase.database().goOffline();
     peer._firebase.delete();
+  })
+})
+
+describe('firebaseにpeerIDを登録する', () => {
+  test('new Peer時にUUIDを発行する', () => {
+    jest.spyOn(Math, "random").mockReturnValue(0.5)
+    const peer = new Peer()
+
+    expect(peer.peerId).toEqual("88888888-8888-4888-8888-888888888888")
   })
 })
