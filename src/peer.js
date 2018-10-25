@@ -18,7 +18,7 @@ const EVENTS = {
 
 class Peer {
   constructor() {
-    this.ref = firebase.database().ref('/test')
+    this.ref = firebase.database().ref(`/${process.env.FIREBASE_REFERENCE}`)
     this._firebase = firebase
   }
 
