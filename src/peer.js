@@ -23,6 +23,8 @@ function getUUID () {
 class Peer {
   constructor() {
     this._pc = new RTCPeerConnection()
+    this._candidates = []
+    this._onCall = false
     this.peerId = getUUID()
     this.ref = firebase.database().ref(`/${process.env.FIREBASE_REFERENCE}`)
     this._firebase = firebase
@@ -37,16 +39,23 @@ class Peer {
   sby4call () {
     this.ref.on("child_changed", snapshot => {
       const received = snapshot.val()
-      if (received.onCall === this.peerId) {
+      if (received.onCall === this.peerId && this._onCall === false) {
+        this._onCall = true
+        this.call(received.peerId)
         this._negotiate(received)
       }
     })
 
     this._channel = this._pc.createDataChannel("backstreet")
+    this._pc.onicecandidate = event => {
+      this._candidates.push(event.candidate)
+      this._update("candidates", this._candidates)
+    }
   }
 
   call (peerId) {
-    this.ref.child(this._uid).child("onCall").set(peerId)
+    this._onCall = true
+    this._update("onCall", peerId)
   }
 
   _negotiate () {
@@ -54,6 +63,10 @@ class Peer {
 
   _send (payload) {
     return this.ref.push(payload)
+  }
+
+  _update (childName, payload) {
+    this.ref.child(this._uid).child(childName).set(payload)
   }
 
   _recv () {
