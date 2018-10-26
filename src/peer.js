@@ -13,7 +13,8 @@ firebase.initializeApp(config)
 
 
 const EVENTS = {
-  recv: "child_added"
+  recv: "child_added",
+  update: "child_changed"
 }
 
 function getUUID () {
@@ -28,15 +29,18 @@ class Peer {
     this.peerId = getUUID()
     this.ref = firebase.database().ref(`/${process.env.FIREBASE_REFERENCE}`)
     this._firebase = firebase
-
-    this.send({
+    this._uid = this.send({
       peerId: this.peerId,
       onCall: false
-    })
+    }).key
+  }
+
+  call (peerId) {
+    this.ref.child(this._uid).child("onCall").set(peerId)
   }
 
   send (payload) {
-    this.ref.push(payload)
+    return this.ref.push(payload)
   }
 
   triggered (event) {
