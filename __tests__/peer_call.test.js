@@ -1,13 +1,6 @@
 import Peer from "../src/peer.js"
 
 describe('呼び出しフラグonCallがあり、呼び出し状態を表す', () => {
-  let peer = null
-
-  beforeEach(async () => {
-    peer = new Peer()
-    await peer.ref.remove()
-  })
-
   test('new Peer時にデフォルトfalseのonCallプロパティがある', async () => {
     const peer = new Peer()
     const received = await peer._recv()
@@ -94,10 +87,5 @@ describe('呼び出しフラグonCallがあり、呼び出し状態を表す', (
     calling2.call(called.peerId)
 
     expect(negotiateSpy).toHaveBeenCalledTimes(1)
-  })
-
-  afterAll(() => {
-    peer._firebase.database().goOffline();
-    peer._firebase.delete();
   })
 })

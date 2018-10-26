@@ -1,20 +1,9 @@
 import Peer from "../src/peer.js"
 
 describe('firebaseに投げたメッセージを拾える', () => {
-  let peer = null
-
-  beforeEach(async () => {
-    peer = new Peer()
-    await peer.ref.remove()
-  })
-
   test('firebaseのRefは環境変数FIREBASE_REFERENCEによる', () => {
+    const peer = new Peer()
     expect(peer.ref.key).toBe(process.env.FIREBASE_REFERENCE)
-  })
-
-  afterAll(() => {
-    peer._firebase.database().goOffline();
-    peer._firebase.delete();
   })
 })
 
