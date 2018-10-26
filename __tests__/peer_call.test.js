@@ -14,12 +14,20 @@ describe('呼び出しフラグonCallがあり、呼び出し状態を表す', (
     expect(received).toHaveProperty("onCall", false)
   })
 
-  test('peerIdでcallすると、そのonCallが呼出中のpeerIdになる', async () => {
+  test('peerIdでcallすると、そのonCallが呼出中のpeerIdになる', done => {
     const peer = new Peer()
 
-    peer.call("now-calling")
+    peer.ref.on("child_changed", snapshot => {
+      let received = snapshot.val()
+      expect(received.onCall).toBe("now-calling")
+      done()
+    })
 
-    let received = await peer.triggered("recv")
-    expect(received.onCall).toBe("now-calling")
+    peer.call("now-calling")
+  })
+
+  afterAll(() => {
+    peer._firebase.database().goOffline();
+    peer._firebase.delete();
   })
 })
