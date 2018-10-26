@@ -9,4 +9,10 @@ describe('実際の接続前にdatachannel作っておいてicecandidate集め�
 
     expect(peer._pc).toBeInstanceOf(RTCPeerConnection)
   })
+
+  test('new Peer時にdatachannelを作ってある', () => {
+    const peer = new Peer()
+
+    expect(peer._channel).toBeInstanceOf(RTCDataChannel)
+  })
 })

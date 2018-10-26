@@ -41,6 +41,8 @@ class Peer {
         this._negotiate(received)
       }
     })
+
+    this._channel = this._pc.createDataChannel("backstreet")
   }
 
   call (peerId) {
