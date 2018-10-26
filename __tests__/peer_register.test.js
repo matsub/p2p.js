@@ -8,21 +8,11 @@ describe('firebaseに投げたメッセージを拾える', () => {
     await peer.ref.remove()
   })
 
-  test('firebaseに飛ばされたデータをcallbackで受け取れる', async () => {
-    const origin = { message: "hello" }
-    peer.send(origin)
-
-    const onPromise = new Promise(res => peer.on("recv", res))
-    const received = await onPromise
-
-    expect(received).toMatchObject(origin)
-  })
-
   test('firebaseの受信をawaitで待てる', async () => {
     const origin = { message: "yayay" }
 
-    peer.send(origin)
-    const received = await peer.triggered("recv")
+    peer._send(origin)
+    const received = await peer._recv()
     expect(received).toMatchObject(origin)
   })
 
@@ -50,7 +40,7 @@ describe('new Peer時にpeerを登録する', () => {
   })
 
   test('new PeerでpeerID(UUID)を持ったオブジェクトをストアする', async () => {
-    const received = await peer.triggered("recv")
+    const received = await peer._recv()
     expect(received).toHaveProperty("peerId", "88888888-8888-4888-8888-888888888888")
   })
 })

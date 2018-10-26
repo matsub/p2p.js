@@ -12,11 +12,6 @@ const config = {
 firebase.initializeApp(config)
 
 
-const EVENTS = {
-  recv: "child_added",
-  update: "child_changed"
-}
-
 function getUUID () {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
     var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
@@ -29,7 +24,7 @@ class Peer {
     this.peerId = getUUID()
     this.ref = firebase.database().ref(`/${process.env.FIREBASE_REFERENCE}`)
     this._firebase = firebase
-    this._uid = this.send({
+    this._uid = this._send({
       peerId: this.peerId,
       onCall: false
     }).key
@@ -39,21 +34,15 @@ class Peer {
     this.ref.child(this._uid).child("onCall").set(peerId)
   }
 
-  send (payload) {
+  _send (payload) {
     return this.ref.push(payload)
   }
 
-  triggered (event) {
+  _recv () {
     return new Promise(res => {
-      this.ref.on(EVENTS[event], snapshot => {
+      this.ref.on("child_added", snapshot => {
         res(snapshot.val())
       })
-    })
-  }
-
-  on (event, callback) {
-    this.ref.on(EVENTS[event], snapshot => {
-      callback(snapshot.val())
     })
   }
 }
