@@ -14,11 +14,11 @@ firebase.initializeApp(config)
 const peerRef = firebase.database().ref('/test')
 peerRef.on("child_added", snapshot => {
   console.warn("added")
-  console.log(snapshot)
+  console.log(snapshot.val())
 })
 peerRef.on("child_changed", snapshot => {
   console.warn("updated")
-  console.log(snapshot)
+  console.log(snapshot.val())
 })
 
 var key = null

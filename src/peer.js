@@ -19,6 +19,7 @@ function getUUID () {
   });
 }
 
+
 class Peer {
   constructor() {
     this.peerId = getUUID()
@@ -28,10 +29,24 @@ class Peer {
       peerId: this.peerId,
       onCall: false
     }).key
+
+    this.sby4call()
+  }
+
+  sby4call () {
+    this.ref.on("child_changed", snapshot => {
+      const received = snapshot.val()
+      if (received.onCall === this.peerId) {
+        this._negotiate(received)
+      }
+    })
   }
 
   call (peerId) {
     this.ref.child(this._uid).child("onCall").set(peerId)
+  }
+
+  _negotiate () {
   }
 
   _send (payload) {
@@ -46,5 +61,6 @@ class Peer {
     })
   }
 }
+
 
 export default Peer

@@ -19,11 +19,35 @@ describe('呼び出しフラグonCallがあり、呼び出し状態を表す', (
 
     peer.ref.on("child_changed", snapshot => {
       let received = snapshot.val()
-      expect(received.onCall).toBe("now-calling")
-      done()
+      if (received.peerId === peer.peerId) {
+        expect(received.onCall).toBe("now-calling")
+        done()
+      }
     })
 
     peer.call("now-calling")
+  })
+
+  test('自分がcallされるとpeer._negotiate が発火する', () => {
+    const calling = new Peer()
+    const called = new Peer()
+    const negotiateSpy = jest.spyOn(called, "_negotiate")
+
+    calling.call(called.peerId)
+
+    expect(negotiateSpy).toBeCalled()
+  })
+
+  test('自分以外がcallされてもpeer._negotiateが発火しない', () => {
+    const calling = new Peer()
+    const called = new Peer()
+    const uncalled = new Peer()
+
+    const negotiateSpy = jest.spyOn(uncalled, "_negotiate")
+
+    calling.call(called.peerId)
+
+    expect(negotiateSpy).not.toBeCalled()
   })
 
   afterAll(() => {
