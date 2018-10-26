@@ -15,4 +15,18 @@ describe('実際の接続前にdatachannel作っておいてicecandidate集め�
 
     expect(peer._channel).toBeInstanceOf(RTCDataChannel)
   })
+
+  test('icecandidate生成時にpeer._sendでRTCIceCandidate飛ばしてる', done => {
+    const peer = new Peer()
+
+    peer.ref.on("child_changed", snapshot => {
+      let received = snapshot.val()
+      if (received.peerId === peer.peerId) {
+        expect(received).toHaveProperty("candidates")
+        done()
+      }
+    })
+
+    peer._pc.wakeCandidateEvent()
+  })
 })
