@@ -22,6 +22,7 @@ function getUUID () {
 
 class Peer {
   constructor() {
+    this._pc = new RTCPeerConnection()
     this.peerId = getUUID()
     this.ref = firebase.database().ref(`/${process.env.FIREBASE_REFERENCE}`)
     this._firebase = firebase
