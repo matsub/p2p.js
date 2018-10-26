@@ -1,4 +1,13 @@
 class mockRTCPeerConnection {
+  createOffer () {
+    return new Promise(resolve => {
+      resolve({sdp: "sdppppp", type: "offer"})
+    })
+  }
+
+  setLocalDescription () {
+  }
+
   createDataChannel () {
     return new RTCDataChannel()
   }

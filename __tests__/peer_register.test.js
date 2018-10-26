@@ -8,14 +8,6 @@ describe('firebaseに投げたメッセージを拾える', () => {
     await peer.ref.remove()
   })
 
-  test('firebaseの受信をawaitで待てる', async () => {
-    const origin = { message: "yayay" }
-
-    peer._send(origin)
-    const received = await peer._recv()
-    expect(received).toMatchObject(origin)
-  })
-
   test('firebaseのRefは環境変数FIREBASE_REFERENCEによる', () => {
     expect(peer.ref.key).toBe(process.env.FIREBASE_REFERENCE)
   })

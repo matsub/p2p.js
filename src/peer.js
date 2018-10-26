@@ -36,7 +36,7 @@ class Peer {
     this.sby4call()
   }
 
-  sby4call () {
+  async sby4call () {
     this.ref.on("child_changed", snapshot => {
       const received = snapshot.val()
       if (received.onCall === this.peerId && this._onCall === false) {
@@ -51,6 +51,10 @@ class Peer {
       this._candidates.push(event.candidate)
       this._update("candidates", this._candidates)
     }
+
+    const offer = await this._pc.createOffer()
+    this._pc.setLocalDescription(offer)
+    this._update("offer", offer)
   }
 
   call (peerId) {
@@ -72,7 +76,10 @@ class Peer {
   _recv () {
     return new Promise(res => {
       this.ref.on("child_added", snapshot => {
-        res(snapshot.val())
+        let received = snapshot.val()
+        if (received.peerId === this.peerId) {
+          res(received)
+        }
       })
     })
   }
