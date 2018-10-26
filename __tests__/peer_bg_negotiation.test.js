@@ -1,5 +1,8 @@
 import Peer from "../src/peer.js"
 
+// TODO: WebRTC APIのテストは書けていない。
+// dev-tools/ にクソモックがある
+
 describe('実際の接続前にdatachannel作っておいてicecandidate集めておく', () => {
   test('new Peer時にRTCPeerConnectionを生成している', () => {
     const peer = new Peer()
